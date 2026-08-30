@@ -1,0 +1,41 @@
+{
+    "version": "2.4.7",
+    "description": "ReShade HDR Installer and graphics mod manager for Windows games.",
+    "homepage": "https://github.com/RankFTW/RHI",
+    "license": "GPL-3.0-only",
+    "notes": "RHI requires the .NET 8 Desktop Runtime. If it is not already installed, add the versions bucket and install versions/windowsdesktop-runtime-8.0.",
+    "suggest": {
+        ".NET Desktop Runtime 8.0": "versions/windowsdesktop-runtime-8.0"
+    },
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/RankFTW/RHI/releases/download/RHI-2.4.7/RHI-Setup.exe",
+            "hash": "07feab0629b97de37ccd184ea725e809cacaf21540fd01ae77f3408585d40912"
+        },
+        "arm64": {
+            "url": "https://github.com/RankFTW/RHI/releases/download/RHI-2.4.7/RHI-Setup.exe",
+            "hash": "07feab0629b97de37ccd184ea725e809cacaf21540fd01ae77f3408585d40912"
+        }
+    },
+    "innosetup": true,
+    "shortcuts": [
+        [
+            "RHI.exe",
+            "RHI"
+        ]
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/RankFTW/RHI/releases/latest",
+        "regex": "\\\"tag_name\\\"\\s*:\\s*\\\"RHI-([\\d.]+)\\\""
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/RankFTW/RHI/releases/download/RHI-$version/RHI-Setup.exe"
+            },
+            "arm64": {
+                "url": "https://github.com/RankFTW/RHI/releases/download/RHI-$version/RHI-Setup.exe"
+            }
+        }
+    }
+}
