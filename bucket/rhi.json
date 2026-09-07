@@ -1,5 +1,5 @@
 {
-    "version": "2.6.4",
+    "version": "2.6.5",
     "description": "ReShade HDR Installer and graphics mod manager for Windows games.",
     "homepage": "https://github.com/RankFTW/RHI",
     "license": "GPL-3.0-only",
@@ -9,12 +9,12 @@
     },
     "architecture": {
         "64bit": {
-            "url": "https://github.com/RankFTW/RHI/releases/download/RHI-2.6.4/RHI-Setup.exe",
-            "hash": "df592b61b514270805574bcd847f223f15ea1b033728906594332de5ed681e24"
+            "url": "https://github.com/RankFTW/RHI/releases/download/RHI-2.6.5/RHI-Setup.exe",
+            "hash": "8ef5a843d0fe4c528284d8f8a040b9288583f1d5aa5da0ac30c27cff52fd6623"
         },
         "arm64": {
-            "url": "https://github.com/RankFTW/RHI/releases/download/RHI-2.6.4/RHI-Setup.exe",
-            "hash": "df592b61b514270805574bcd847f223f15ea1b033728906594332de5ed681e24"
+            "url": "https://github.com/RankFTW/RHI/releases/download/RHI-2.6.5/RHI-Setup.exe",
+            "hash": "8ef5a843d0fe4c528284d8f8a040b9288583f1d5aa5da0ac30c27cff52fd6623"
         }
     },
     "innosetup": true,
