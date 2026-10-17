@@ -1,0 +1,41 @@
+{
+    "version": "2.0.9",
+    "description": "Veyra - GPU-accelerated video player and real-time enhancement suite (NVIDIA portable build).",
+    "homepage": "https://github.com/Likely7/Veyra-NRVideo",
+    "license": "GPL-3.0-only",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/Likely7/Veyra-NRVideo/releases/download/v2.0.9/Veyra-2.0.9-NVIDIA-win64-portable.zip",
+            "hash": "6618461d722428aff65e8eee1847cd673aaa02d6c00beab87b7e661b97e0f843"
+        }
+    },
+    "pre_install": [
+        "if (!(Test-Path (Join-Path $dir 'veyra_qml_ui.exe'))) {",
+        "    $packages = @(Get-ChildItem -LiteralPath $dir -Directory | Where-Object { Test-Path (Join-Path $_.FullName 'veyra_qml_ui.exe') })",
+        "    if ($packages.Count -ne 1) { throw 'Cannot locate Veyra portable application root.' }",
+        "    Get-ChildItem -LiteralPath $packages[0].FullName -Force | Move-Item -Destination $dir -Force",
+        "    Remove-Item -LiteralPath $packages[0].FullName -Force",
+        "}"
+    ],
+    "shortcuts": [
+        [
+            "veyra_qml_ui.exe",
+            "Veyra (NVIDIA)"
+        ]
+    ],
+    "persist": [
+        "runtime_local/user-data-2.0.0"
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/Likely7/Veyra-NRVideo/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "v([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/Likely7/Veyra-NRVideo/releases/download/v$version/Veyra-$version-NVIDIA-win64-portable.zip"
+            }
+        }
+    }
+}
