@@ -1,0 +1,67 @@
+{
+    "version": "0.11.3",
+    "description": "GPU-accelerated video mosaic detection and restoration tool (Windows NVIDIA build).",
+    "homepage": "https://github.com/Kruk2/jasna",
+    "license": "AGPL-3.0-only",
+    "architecture": {
+        "64bit": {
+            "url": [
+                "https://github.com/Kruk2/jasna/releases/download/v0.11.3/jasna-windows-0.11.3.7z.001",
+                "https://github.com/Kruk2/jasna/releases/download/v0.11.3/jasna-windows-0.11.3.7z.002",
+                "https://github.com/Kruk2/jasna/releases/download/v0.11.3/jasna-windows-0.11.3.7z.003",
+                "https://github.com/Kruk2/jasna/releases/download/v0.11.3/jasna-windows-0.11.3.7z.004"
+            ],
+            "hash": [
+                "c5a0f465c0273f7f7607eaf4ae005cd9539599704173b1c0218e3f9031a9dd63",
+                "cb541c2a67469b4b0355d9d5b8d808e745bb2c6ed7874fb2415331f2d1d820db",
+                "13f7713414ee5fee95ea569793d55393e23c71ce1c9707267ea869577b77211a",
+                "cd6545ea3126e7271b8f7079fefc4c0f26777ef8271c73742533616378914b13"
+            ]
+        }
+    },
+    "pre_install": [
+        "if (!(Test-Path (Join-Path $dir 'jasna.exe'))) {",
+        "    $packages = @(Get-ChildItem -LiteralPath $dir -Directory | Where-Object { Test-Path (Join-Path $_.FullName 'jasna.exe') })",
+        "    if ($packages.Count -ne 1) { throw 'Cannot locate Jasna application root after extracting the archive.' }",
+        "    Get-ChildItem -LiteralPath $packages[0].FullName -Force | Move-Item -Destination $dir -Force",
+        "    Remove-Item -LiteralPath $packages[0].FullName -Recurse -Force",
+        "}",
+        "$models = Join-Path $dir 'model_weights'",
+        "$persistedModels = Join-Path (Split-Path -Parent $dir) 'persist\\model_weights'",
+        "if ((Test-Path -LiteralPath $models -PathType Container) -and (Test-Path -LiteralPath $persistedModels -PathType Container)) {",
+        "    Get-ChildItem -LiteralPath $models -Force | Copy-Item -Destination $persistedModels -Recurse -Force",
+        "    Remove-Item -LiteralPath $models -Recurse -Force",
+        "}"
+    ],
+    "shortcuts": [
+        [
+            "jasna.exe",
+            "Jasna"
+        ]
+    ],
+    "persist": [
+        "model_weights"
+    ],
+    "notes": [
+        "NVIDIA Windows build; requires a supported GPU and recent NVIDIA driver.",
+        "Use an ASCII-only installation path on a local NTFS SSD. Download size is approximately 6.5 GiB.",
+        "The model_weights directory persists across Scoop updates, preserving GPU-compiled model engines."
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/Kruk2/jasna/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "v([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": [
+                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-$version.7z.001",
+                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-$version.7z.002",
+                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-$version.7z.003",
+                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-$version.7z.004"
+                ]
+            }
+        }
+    }
+}
