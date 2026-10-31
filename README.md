@@ -23,6 +23,8 @@ scoop install lonefisher/fishgram-beta
 
 Run `fishgram` or use the **FishGram (Beta)** shortcut. Scoop preserves accounts and settings in `FishGramData` and manages updates; the client's built-in updater is disabled. The first Beta ships before the remaining manual search and update-recovery tests; see the [Release notes](https://github.com/lonefisher/fishgram/releases) for known limitations.
 
+The command and shortcut launch the EXE in its actual version directory. FishGram's installation lock rejects Scoop's `current` directory junction. If you installed the initial manifest, apply the launcher correction with `scoop update fishgram-beta --force` after updating the bucket.
+
 ### RHI
 
 [RHI](https://github.com/RankFTW/RHI) is a ReShade HDR installer and graphics mod manager for Windows games.

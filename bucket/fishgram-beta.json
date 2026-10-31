@@ -13,7 +13,9 @@
         "$appRoot = Split-Path $dir",
         "$running = Get-Process -Name Telegram -ErrorAction SilentlyContinue | Where-Object { $_.Path -and (Split-Path (Split-Path $_.Path)) -eq $appRoot }",
         "if ($running) { throw 'Exit FishGram before upgrading or reinstalling it.' }",
-        "New-Item -ItemType Directory -Path (Join-Path $dir 'FishGramData') -Force | Out-Null"
+        "New-Item -ItemType Directory -Path (Join-Path $dir 'FishGramData') -Force | Out-Null",
+        "$launcher = '@echo off' + \"`r`n\" + 'start \"\" \"%~dp0..\\' + $version + '\\Telegram.exe\" -workdir \"%~dp0FishGramData\" %*'",
+        "Set-Content -LiteralPath (Join-Path $dir 'Start-FishGram.cmd') -Value $launcher -Encoding Ascii"
     ],
     "post_install": [
         "$program = (Join-Path $original_dir 'Telegram.exe').Replace('\\', '/')",
@@ -23,14 +25,16 @@
     ],
     "bin": [
         [
-            "Start-FishGram.cmd",
-            "fishgram"
+            "..\\7.3.3-r11\\Telegram.exe",
+            "fishgram",
+            "-workdir \"$persist_dir\\FishGramData\""
         ]
     ],
     "shortcuts": [
         [
-            "Start-FishGram.cmd",
-            "FishGram (Beta)"
+            "..\\7.3.3-r11\\Telegram.exe",
+            "FishGram (Beta)",
+            "-workdir \"$persist_dir\\FishGramData\""
         ]
     ],
     "persist": "FishGramData",
@@ -40,6 +44,20 @@
         "regex": "v([\\d.]+-r\\d+)-beta"
     },
     "autoupdate": {
+        "bin": [
+            [
+                "..\\$version\\Telegram.exe",
+                "fishgram",
+                "-workdir \"$persist_dir\\FishGramData\""
+            ]
+        ],
+        "shortcuts": [
+            [
+                "..\\$version\\Telegram.exe",
+                "FishGram (Beta)",
+                "-workdir \"$persist_dir\\FishGramData\""
+            ]
+        ],
         "architecture": {
             "64bit": {
                 "url": "https://github.com/lonefisher/fishgram/releases/download/v$version-beta/FishGram-$version-windows-x64.zip"
