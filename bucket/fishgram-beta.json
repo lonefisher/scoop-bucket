@@ -1,0 +1,54 @@
+{
+    "version": "7.3.3-r11",
+    "description": "FishGram Beta - unofficial Telegram Desktop client with restricted-chat global search (Windows 11 x64).",
+    "homepage": "https://github.com/lonefisher/fishgram",
+    "license": "GPL-3.0-only",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/lonefisher/fishgram/releases/download/v7.3.3-r11-beta/FishGram-7.3.3-r11-windows-x64.zip",
+            "hash": "108146ed393daaaddbcf0fdf26a4424070cca647b10b5c5f1ce160d823e5812f"
+        }
+    },
+    "pre_install": [
+        "$appRoot = Split-Path $dir",
+        "$running = Get-Process -Name Telegram -ErrorAction SilentlyContinue | Where-Object { $_.Path -and (Split-Path (Split-Path $_.Path)) -eq $appRoot }",
+        "if ($running) { throw 'Exit FishGram before upgrading or reinstalling it.' }",
+        "New-Item -ItemType Directory -Path (Join-Path $dir 'FishGramData') -Force | Out-Null"
+    ],
+    "post_install": [
+        "$program = (Join-Path $original_dir 'Telegram.exe').Replace('\\', '/')",
+        "$markers = Join-Path $dir 'externalupdater.d'",
+        "New-Item -ItemType Directory -Path $markers -Force | Out-Null",
+        "[IO.File]::WriteAllText((Join-Path $markers 'scoop'), $program, [Text.UTF8Encoding]::new($false))"
+    ],
+    "bin": [
+        [
+            "Start-FishGram.cmd",
+            "fishgram"
+        ]
+    ],
+    "shortcuts": [
+        [
+            "Start-FishGram.cmd",
+            "FishGram (Beta)"
+        ]
+    ],
+    "persist": "FishGramData",
+    "checkver": {
+        "url": "https://api.github.com/repos/lonefisher/fishgram/releases",
+        "jsonpath": "$[?(@.prerelease == true && @.draft == false)].tag_name",
+        "regex": "v([\\d.]+-r\\d+)-beta"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/lonefisher/fishgram/releases/download/v$version-beta/FishGram-$version-windows-x64.zip"
+            }
+        }
+    },
+    "notes": [
+        "Beta: large-scope search may take tens of seconds. Some search and update-recovery scenarios remain unverified; see the Release notes.",
+        "Run 'fishgram' or use the FishGram (Beta) shortcut. Accounts and settings persist in FishGramData.",
+        "Update with 'scoop update fishgram-beta'. The client's built-in updater is disabled for this installation."
+    ]
+}

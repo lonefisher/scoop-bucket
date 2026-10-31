@@ -13,6 +13,16 @@ scoop bucket add lonefisher https://github.com/lonefisher/scoop-bucket
 
 ## Available manifests
 
+### FishGram Beta
+
+[FishGram](https://github.com/lonefisher/fishgram) is an unofficial Telegram Desktop client for Windows 11 x64 with restricted-chat global search.
+
+```powershell
+scoop install lonefisher/fishgram-beta
+```
+
+Run `fishgram` or use the **FishGram (Beta)** shortcut. Scoop preserves accounts and settings in `FishGramData` and manages updates; the client's built-in updater is disabled. The first Beta ships before the remaining manual search and update-recovery tests; see the [Release notes](https://github.com/lonefisher/fishgram/releases) for known limitations.
+
 ### RHI
 
 [RHI](https://github.com/RankFTW/RHI) is a ReShade HDR installer and graphics mod manager for Windows games.
