@@ -1,6 +1,6 @@
 {
     "version": "7.3.3-r11",
-    "description": "FishGram Beta - unofficial Telegram Desktop client with restricted-chat global search (Windows 11 x64).",
+    "description": "FishGram - unofficial Telegram Desktop client with restricted-chat global search (Windows 11 x64).",
     "homepage": "https://github.com/lonefisher/fishgram",
     "license": "GPL-3.0-only",
     "architecture": {
@@ -33,7 +33,7 @@
     "shortcuts": [
         [
             "..\\7.3.3-r11\\Telegram.exe",
-            "FishGram (Beta)",
+            "FishGram",
             "-workdir \"$persist_dir\\FishGramData\""
         ]
     ],
@@ -54,7 +54,7 @@
         "shortcuts": [
             [
                 "..\\$version\\Telegram.exe",
-                "FishGram (Beta)",
+                "FishGram",
                 "-workdir \"$persist_dir\\FishGramData\""
             ]
         ],
@@ -66,7 +66,7 @@
     },
     "notes": [
         "Beta: large-scope search may take tens of seconds. Some search and update-recovery scenarios remain unverified; see the Release notes.",
-        "Run 'fishgram' or use the FishGram (Beta) shortcut. Accounts and settings persist in FishGramData.",
+        "Run 'fishgram' or use the FishGram shortcut. Accounts and settings persist in FishGramData.",
         "Update with 'scoop update fishgram-beta'. The client's built-in updater is disabled for this installation."
     ]
 }
