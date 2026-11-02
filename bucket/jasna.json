@@ -56,10 +56,10 @@
         "architecture": {
             "64bit": {
                 "url": [
-                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-$version.7z.001",
-                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-$version.7z.002",
-                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-$version.7z.003",
-                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-$version.7z.004"
+                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-nvidia-$version.7z.001",
+                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-nvidia-$version.7z.002",
+                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-nvidia-$version.7z.003",
+                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-nvidia-$version.7z.004"
                 ]
             }
         }
