@@ -1,0 +1,76 @@
+{
+    "version": "7.4.2-r13",
+    "description": "Fishgram - unofficial Telegram Desktop client with restricted-chat global search (Windows 11 x64).",
+    "homepage": "https://github.com/lonefisher/fishgram",
+    "license": "GPL-3.0-only",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/lonefisher/fishgram/releases/download/v7.4.2-r13-beta/FishGram-7.4.2-r13-windows-x64.zip",
+            "hash": "dafa0fa4cf772221b093599bee4b5030b6ab6b03fdfefb554759d191577727a5"
+        }
+    },
+    "pre_install": [
+        "$appRoot = Split-Path $dir",
+        "$legacyRoot = Join-Path (Split-Path $appRoot) 'fishgram-beta'",
+        "if (Test-Path -LiteralPath (Join-Path $legacyRoot 'current')) { throw 'fishgram-beta is already installed. Keep using it until its FishGramData has been backed up and migrated; do not install both package IDs together.' }",
+        "$running = Get-Process -Name Telegram -ErrorAction SilentlyContinue | Where-Object { $_.Path -and (Split-Path (Split-Path $_.Path)) -eq $appRoot }",
+        "if ($running) { throw 'Exit FishGram before upgrading or reinstalling it.' }",
+        "New-Item -ItemType Directory -Path (Join-Path $dir 'FishGramData') -Force | Out-Null",
+        "$launcher = '@echo off' + \"`r`n\" + 'start \"\" \"%~dp0..\\' + $version + '\\Telegram.exe\" -workdir \"%~dp0FishGramData\" %*'",
+        "Set-Content -LiteralPath (Join-Path $dir 'Start-FishGram.cmd') -Value $launcher -Encoding Ascii"
+    ],
+    "post_install": [
+        "$program = (Join-Path $original_dir 'Telegram.exe').Replace('\\', '/')",
+        "$markers = Join-Path $dir 'externalupdater.d'",
+        "New-Item -ItemType Directory -Path $markers -Force | Out-Null",
+        "[IO.File]::WriteAllText((Join-Path $markers 'scoop'), $program, [Text.UTF8Encoding]::new($false))"
+    ],
+    "bin": [
+        [
+            "..\\7.4.2-r13\\Telegram.exe",
+            "fishgram",
+            "-workdir \"$persist_dir\\FishGramData\""
+        ]
+    ],
+    "shortcuts": [
+        [
+            "..\\7.4.2-r13\\Telegram.exe",
+            "Fishgram",
+            "-workdir \"$persist_dir\\FishGramData\""
+        ]
+    ],
+    "persist": "FishGramData",
+    "checkver": {
+        "url": "https://api.github.com/repos/lonefisher/fishgram/releases",
+        "jsonpath": "$[?(@.prerelease == true && @.draft == false)].tag_name",
+        "regex": "v([\\d.]+-r\\d+)-beta"
+    },
+    "autoupdate": {
+        "bin": [
+            [
+                "..\\$version\\Telegram.exe",
+                "fishgram",
+                "-workdir \"$persist_dir\\FishGramData\""
+            ]
+        ],
+        "shortcuts": [
+            [
+                "..\\$version\\Telegram.exe",
+                "Fishgram",
+                "-workdir \"$persist_dir\\FishGramData\""
+            ]
+        ],
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/lonefisher/fishgram/releases/download/v$version-beta/FishGram-$version-windows-x64.zip"
+            }
+        }
+    },
+    "notes": [
+        "Beta: large-scope search may take tens of seconds. Some search and update-recovery scenarios remain unverified; see the Release notes.",
+        "This candidate has not completed Windows UI or actual account testing; see the Release notes.",
+        "Run 'fishgram' or use the Fishgram shortcut. Accounts and settings persist in FishGramData.",
+        "Update with 'scoop update fishgram'. The client's built-in updater is disabled for this installation.",
+        "The package ID is fishgram; this remains a prerelease build, not a stable-release promotion. Do not install alongside fishgram-beta."
+    ]
+}
