@@ -25,9 +25,9 @@ Run `fishgram` or use the **Fishgram** shortcut. Scoop preserves accounts and se
 
 The canonical package ID is `fishgram`, with display name **Fishgram**. The release remains a prerelease: the historical `-beta` release tag and download URLs are unchanged, and the client's built-in updater remains disabled.
 
-Existing `fishgram-beta` installations remain supported with `scoop update fishgram-beta`; do not install both IDs side by side, because they share the command and shortcut. The new manifest refuses installation while the legacy package is installed. Renaming a Scoop ID does not migrate its persisted data: back up and verify `persist/fishgram-beta/FishGramData` before any migration. No existing account data is moved or deleted by this naming change.
+The legacy `fishgram-beta` manifest has been removed from this bucket. Existing local installations and their account data are not deleted, but the old ID no longer receives updates from this bucket. Do not install both IDs side by side, because they share the command and shortcut. The new manifest refuses installation while the legacy package is installed. Renaming a Scoop ID does not migrate its persisted data: back up and verify `persist/fishgram-beta/FishGramData` before any migration. No existing account data is moved or deleted by this naming change.
 
-The command and shortcut launch the EXE in its actual version directory. FishGram's installation lock rejects Scoop's `current` directory junction. If you installed the initial manifest, apply the launcher correction with `scoop update fishgram-beta --force` after updating the bucket.
+The command and shortcut launch the EXE in its actual version directory. FishGram's installation lock rejects Scoop's `current` directory junction. For the canonical package, update with `scoop update fishgram`. Existing legacy installations need a separate, verified data migration before switching IDs.
 
 ### RHI
 
@@ -74,6 +74,7 @@ Normal Scoop updates are sufficient:
 
 ```powershell
 scoop update
+scoop update fishgram
 scoop update rhi
 scoop update veyra-nvidia
 scoop update jasna
