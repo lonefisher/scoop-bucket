@@ -1,12 +1,12 @@
 {
-    "version": "7.3.5-r12",
+    "version": "7.4.2-r13",
     "description": "FishGram - unofficial Telegram Desktop client with restricted-chat global search (Windows 11 x64).",
     "homepage": "https://github.com/lonefisher/fishgram",
     "license": "GPL-3.0-only",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/lonefisher/fishgram/releases/download/v7.3.5-r12-beta/FishGram-7.3.5-r12-windows-x64.zip",
-            "hash": "c093f1698fa0a9db04a89b0b15a0943664cf44302b4d4d22efa6482c3cae81ea"
+            "url": "https://github.com/lonefisher/fishgram/releases/download/v7.4.2-r13-beta/FishGram-7.4.2-r13-windows-x64.zip",
+            "hash": "dafa0fa4cf772221b093599bee4b5030b6ab6b03fdfefb554759d191577727a5"
         }
     },
     "pre_install": [
@@ -25,14 +25,14 @@
     ],
     "bin": [
         [
-            "..\\7.3.5-r12\\Telegram.exe",
+            "..\\7.4.2-r13\\Telegram.exe",
             "fishgram",
             "-workdir \"$persist_dir\\FishGramData\""
         ]
     ],
     "shortcuts": [
         [
-            "..\\7.3.5-r12\\Telegram.exe",
+            "..\\7.4.2-r13\\Telegram.exe",
             "FishGram",
             "-workdir \"$persist_dir\\FishGramData\""
         ]
