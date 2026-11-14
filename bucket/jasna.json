@@ -1,21 +1,17 @@
 {
-    "version": "0.12.2",
+    "version": "0.12.3",
     "description": "GPU-accelerated video mosaic detection and restoration tool (Windows NVIDIA build).",
     "homepage": "https://github.com/Kruk2/jasna",
     "license": "AGPL-3.0-only",
     "architecture": {
         "64bit": {
             "url": [
-                "https://github.com/Kruk2/jasna/releases/download/v0.12.2/jasna-windows-nvidia-0.12.2.7z.001",
-                "https://github.com/Kruk2/jasna/releases/download/v0.12.2/jasna-windows-nvidia-0.12.2.7z.002",
-                "https://github.com/Kruk2/jasna/releases/download/v0.12.2/jasna-windows-nvidia-0.12.2.7z.003",
-                "https://github.com/Kruk2/jasna/releases/download/v0.12.2/jasna-windows-nvidia-0.12.2.7z.004"
+                "https://github.com/Kruk2/jasna/releases/download/v0.12.3/jasna-windows-0.12.3.7z.001",
+                "https://github.com/Kruk2/jasna/releases/download/v0.12.3/jasna-windows-0.12.3.7z.002"
             ],
             "hash": [
-                "3e46f2ae4ae02786b8abd19063d120c9b8a7bd4ae5fa3944024e1e8160c11890",
-                "839635ad7aa46a3031517fd8ba008535b5d4a4a86f181fc1000b34ccba8d4b67",
-                "cb6b35304dd951447982420a2bbb5f79745f5ab257d482a9dcfd36e2d2ddb97c",
-                "bf1f77efe160c2b86d0e8f7a308c2b73619c8dce94182d337bff241bf85b1f92"
+                "4f99806f7f58f367a49a758425c28d8bab47c727e5797de134e9153111800764",
+                "1a8fd0d93eed2a8a095a468a8301b5bbc0d65fd43ce802385ec57c284fbb87ed"
             ]
         }
     },
@@ -27,7 +23,7 @@
         "    Remove-Item -LiteralPath $packages[0].FullName -Recurse -Force",
         "}",
         "$models = Join-Path $dir 'model_weights'",
-        "$persistedModels = Join-Path (Split-Path -Parent $dir) 'persist\\model_weights'",
+        "$persistedModels = Join-Path $persist_dir 'model_weights'",
         "if ((Test-Path -LiteralPath $models -PathType Container) -and (Test-Path -LiteralPath $persistedModels -PathType Container)) {",
         "    Get-ChildItem -LiteralPath $models -Force | Copy-Item -Destination $persistedModels -Recurse -Force",
         "    Remove-Item -LiteralPath $models -Recurse -Force",
@@ -35,14 +31,14 @@
     ],
     "shortcuts": [
         [
-            "jasna.exe",
+            "..\\0.12.3\\jasna.exe",
             "Jasna"
         ]
     ],
     "persist": "model_weights",
     "notes": [
         "NVIDIA Windows build; requires a supported GPU and recent NVIDIA driver.",
-        "Use an ASCII-only installation path on a local NTFS SSD. Download size is approximately 6.5 GiB.",
+        "Use an ASCII-only installation path on a local NTFS SSD. Download size is approximately 3.2 GiB.",
         "The model_weights directory persists across Scoop updates, preserving GPU-compiled model engines."
     ],
     "checkver": {
@@ -51,13 +47,17 @@
         "regex": "v([\\d.]+)"
     },
     "autoupdate": {
+        "shortcuts": [
+            [
+                "..\\$version\\jasna.exe",
+                "Jasna"
+            ]
+        ],
         "architecture": {
             "64bit": {
                 "url": [
-                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-nvidia-$version.7z.001",
-                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-nvidia-$version.7z.002",
-                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-nvidia-$version.7z.003",
-                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-nvidia-$version.7z.004"
+                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-$version.7z.001",
+                    "https://github.com/Kruk2/jasna/releases/download/v$version/jasna-windows-$version.7z.002"
                 ]
             }
         }

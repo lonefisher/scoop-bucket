@@ -58,13 +58,13 @@ Scoop creates a **Veyra (NVIDIA)** Start Menu shortcut and preserves `runtime_lo
 
 ### Jasna (NVIDIA)
 
-[Jasna](https://github.com/Kruk2/jasna) is a GPU-accelerated video mosaic detection and restoration tool. This manifest installs the official **Windows NVIDIA** release, which is distributed as a multi-part 7z archive (approximately 6.5 GiB for v0.11.3).
+[Jasna](https://github.com/Kruk2/jasna) is a GPU-accelerated video mosaic detection and restoration tool. This manifest installs the official **Windows NVIDIA** release, which is distributed as a two-part 7z archive (approximately 3.2 GiB for v0.12.3).
 
 ```powershell
 scoop install lonefisher/jasna
 ```
 
-Scoop verifies each archive part using its SHA-256, extracts the first `.7z.001` volume, and creates a **Jasna** Start Menu shortcut. The `model_weights` directory is persisted between updates so locally compiled GPU engines survive. New bundled model files are merged into the persisted directory during upgrades.
+Scoop verifies each archive part using its SHA-256, extracts the first `.7z.001` volume, and creates a **Jasna** Start Menu shortcut pointing to the actual version directory to avoid startup checks failing through the `current` junction. The `model_weights` directory is persisted between updates so locally compiled GPU engines survive. New bundled model files are merged into the persisted directory during upgrades.
 
 Jasna requires an NVIDIA GPU and a recent driver. Its installation path must contain only English/ASCII characters and should be on a local NTFS SSD.
 
