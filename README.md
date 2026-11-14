@@ -13,15 +13,19 @@ scoop bucket add lonefisher https://github.com/lonefisher/scoop-bucket
 
 ## Available manifests
 
-### FishGram
+### Fishgram
 
-[FishGram](https://github.com/lonefisher/fishgram) is an unofficial Telegram Desktop client for Windows 11 x64 with restricted-chat global search.
+[Fishgram](https://github.com/lonefisher/fishgram) is an unofficial Telegram Desktop client for Windows 11 x64 with restricted-chat global search.
 
 ```powershell
-scoop install lonefisher/fishgram-beta
+scoop install lonefisher/fishgram
 ```
 
-Run `fishgram` or use the **FishGram** shortcut. Scoop preserves accounts and settings in `FishGramData` and manages updates; the client's built-in updater is disabled. The first Beta ships before the remaining manual search and update-recovery tests; see the [Release notes](https://github.com/lonefisher/fishgram/releases) for known limitations.
+Run `fishgram` or use the **Fishgram** shortcut. Scoop preserves accounts and settings in `FishGramData` and manages updates; the client's built-in updater is disabled. The first Beta ships before the remaining manual search and update-recovery tests; see the [Release notes](https://github.com/lonefisher/fishgram/releases) for known limitations.
+
+The canonical package ID is `fishgram`, with display name **Fishgram**. The release remains a prerelease: the historical `-beta` release tag and download URLs are unchanged, and the client's built-in updater remains disabled.
+
+Existing `fishgram-beta` installations remain supported with `scoop update fishgram-beta`; do not install both IDs side by side, because they share the command and shortcut. The new manifest refuses installation while the legacy package is installed. Renaming a Scoop ID does not migrate its persisted data: back up and verify `persist/fishgram-beta/FishGramData` before any migration. No existing account data is moved or deleted by this naming change.
 
 The command and shortcut launch the EXE in its actual version directory. FishGram's installation lock rejects Scoop's `current` directory junction. If you installed the initial manifest, apply the launcher correction with `scoop update fishgram-beta --force` after updating the bucket.
 
