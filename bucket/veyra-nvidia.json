@@ -1,12 +1,12 @@
 {
-    "version": "2.1.9",
+    "version": "2.2.0",
     "description": "Veyra - GPU-accelerated video player and real-time enhancement suite (NVIDIA portable build).",
     "homepage": "https://github.com/Likely7/Veyra-NRVideo",
     "license": "GPL-3.0-only",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/Likely7/Veyra-NRVideo/releases/download/v2.1.9/Veyra-2.1.9-NVIDIA-win64-portable.zip",
-            "hash": "4225ecb11a8e96c2826b4b0b798feb811d7ae237f3edf0b627f3b6895c79f362"
+            "url": "https://github.com/Likely7/Veyra-NRVideo/releases/download/v2.2.0/Veyra-2.2.0-NVIDIA-win64-portable.zip",
+            "hash": "fd1235483a6e36b2520966ec161104478cd93186e97af3b0d78d2dfa7b129932"
         }
     },
     "pre_install": [
