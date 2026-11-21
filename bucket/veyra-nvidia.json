@@ -9,17 +9,13 @@
             "hash": "fd1235483a6e36b2520966ec161104478cd93186e97af3b0d78d2dfa7b129932"
         }
     },
+    "extract_dir": "Veyra-2.2.0-NVIDIA-win64-portable",
     "pre_install": [
-        "if (!(Test-Path (Join-Path $dir 'veyra_qml_ui.exe'))) {",
-        "    $packages = @(Get-ChildItem -LiteralPath $dir -Directory | Where-Object { Test-Path (Join-Path $_.FullName 'veyra_qml_ui.exe') })",
-        "    if ($packages.Count -ne 1) { throw 'Cannot locate Veyra portable application root.' }",
-        "    Get-ChildItem -LiteralPath $packages[0].FullName -Force | Move-Item -Destination $dir -Force",
-        "    Remove-Item -LiteralPath $packages[0].FullName -Force",
-        "}"
+        "New-Item -ItemType Directory -Path (Join-Path $dir 'runtime_local') -Force | Out-Null"
     ],
     "shortcuts": [
         [
-            "veyra_qml_ui.exe",
+            "Veyra.exe",
             "Veyra (NVIDIA)"
         ]
     ],
@@ -30,6 +26,7 @@
         "regex": "v([\\d.]+)"
     },
     "autoupdate": {
+        "extract_dir": "Veyra-$version-NVIDIA-win64-portable",
         "architecture": {
             "64bit": {
                 "url": "https://github.com/Likely7/Veyra-NRVideo/releases/download/v$version/Veyra-$version-NVIDIA-win64-portable.zip"

@@ -1,0 +1,73 @@
+name: Veyra install smoke test
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'bucket/veyra-nvidia.json'
+      - '.github/workflows/veyra-install.yml'
+  pull_request:
+    paths:
+      - 'bucket/veyra-nvidia.json'
+      - '.github/workflows/veyra-install.yml'
+  workflow_dispatch:
+  workflow_run:
+    workflows: [Excavator]
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  install:
+    name: Install Veyra on Windows
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == github.event.repository.default_branch)
+    runs-on: windows-latest
+    steps:
+      - name: Checkout bucket
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          path: my_bucket
+          persist-credentials: false
+      - name: Check whether Veyra changed
+        id: changes
+        env:
+          EXCAVATOR_START: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          if ($env:GITHUB_EVENT_NAME -eq 'workflow_run') {
+              $changed = git -C my_bucket diff --name-only $env:EXCAVATOR_START HEAD -- bucket/veyra-nvidia.json
+              if ($LASTEXITCODE -ne 0) { throw 'Could not compare the bucket before and after Excavator.' }
+              if (!$changed) { return }
+          }
+          'veyra=true' >> $env:GITHUB_OUTPUT
+      - name: Checkout Scoop
+        if: steps.changes.outputs.veyra == 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ScoopInstaller/Scoop
+          path: scoop_core
+          persist-credentials: false
+      - name: Install package and verify shortcut and persistence
+        if: steps.changes.outputs.veyra == 'true'
+        run: |
+          $env:SCOOP = Join-Path $env:RUNNER_TEMP 'scoop-veyra'
+          $manifest = (Resolve-Path '.\my_bucket\bucket\veyra-nvidia.json').Path
+          & .\scoop_core\bin\scoop.ps1 install --no-update-scoop $manifest
+          if ($LASTEXITCODE -ne 0) { throw 'Scoop could not install veyra-nvidia.' }
+
+          $current = Join-Path $env:SCOOP 'apps\veyra-nvidia\current'
+          $launcher = Join-Path $current 'Veyra.exe'
+          $startMenu = [Environment]::GetFolderPath('StartMenu')
+          $shortcutPath = Join-Path $startMenu 'Programs\Scoop Apps\Veyra (NVIDIA).lnk'
+          if (!(Test-Path -LiteralPath $launcher -PathType Leaf) -or !(Test-Path -LiteralPath $shortcutPath -PathType Leaf)) {
+              throw 'The portable launcher or Start menu shortcut is missing.'
+          }
+          $shortcut = (New-Object -ComObject WScript.Shell).CreateShortcut($shortcutPath)
+          if ($shortcut.TargetPath -ne $launcher) { throw "Unexpected shortcut target: $($shortcut.TargetPath)" }
+
+          $userData = Get-Item -LiteralPath (Join-Path $current 'runtime_local\user-data-2.0.0')
+          $persist = Join-Path $env:SCOOP 'persist\veyra-nvidia\runtime_local\user-data-2.0.0'
+          if ($userData.LinkType -ne 'Junction' -or $userData.Target -ne $persist) {
+              throw 'Veyra user data is not linked to the Scoop persist directory.'
+          }
