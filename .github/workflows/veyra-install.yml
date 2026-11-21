@@ -52,6 +52,7 @@ jobs:
         if: steps.changes.outputs.veyra == 'true'
         run: |
           $env:SCOOP = Join-Path $env:RUNNER_TEMP 'scoop-veyra'
+          New-Item -ItemType Directory -Path "$env:SCOOP\shims", "$env:SCOOP\buckets" -Force | Out-Null
           $manifest = (Resolve-Path '.\my_bucket\bucket\veyra-nvidia.json').Path
           & .\scoop_core\bin\scoop.ps1 install --no-update-scoop $manifest
           if ($LASTEXITCODE -ne 0) { throw 'Scoop could not install veyra-nvidia.' }
