@@ -21,9 +21,9 @@ scoop bucket add lonefisher https://github.com/lonefisher/scoop-bucket
 scoop install lonefisher/fishgram
 ```
 
-Run `fishgram` or use the **Fishgram** shortcut. Scoop preserves accounts and settings in `FishGramData` and manages updates; the client's built-in updater is disabled. The first Beta ships before the remaining manual search and update-recovery tests; see the [Release notes](https://github.com/lonefisher/fishgram/releases) for known limitations.
+Run `fishgram` or use the **Fishgram** shortcut. Scoop preserves accounts and settings in `FishGramData` and manages updates; the client's built-in updater is disabled. Some search and update-recovery tests remain unfinished; see the [Release notes](https://github.com/lonefisher/fishgram/releases) for known limitations.
 
-The canonical package ID is `fishgram`, with display name **Fishgram**. The release remains a prerelease: the historical `-beta` release tag and download URLs are unchanged, and the client's built-in updater remains disabled.
+The canonical package ID is `fishgram`, with display name **Fishgram**. New FishGram releases are normal GitHub releases: tag `v<version>` with no `-beta` suffix, not a prerelease. The manifest currently still installs 7.4.2-r13 from the historical prerelease tag. The client's built-in updater remains disabled.
 
 The legacy `fishgram-beta` manifest has been removed from this bucket. Existing local installations and their account data are not deleted, but the old ID no longer receives updates from this bucket. Do not install both IDs side by side, because they share the command and shortcut. The new manifest refuses installation while the legacy package is installed. Renaming a Scoop ID does not migrate its persisted data: back up and verify `persist/fishgram-beta/FishGramData` before any migration. No existing account data is moved or deleted by this naming change.
 

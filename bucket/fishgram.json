@@ -42,8 +42,8 @@
     "persist": "FishGramData",
     "checkver": {
         "url": "https://api.github.com/repos/lonefisher/fishgram/releases",
-        "jsonpath": "$[?(@.prerelease == true && @.draft == false)].tag_name",
-        "regex": "v([\\d.]+-r\\d+)-beta"
+        "jsonpath": "$[?(@.prerelease == false && @.draft == false)].tag_name",
+        "regex": "v([\\d.]+-r\\d+)"
     },
     "autoupdate": {
         "bin": [
@@ -62,15 +62,15 @@
         ],
         "architecture": {
             "64bit": {
-                "url": "https://github.com/lonefisher/fishgram/releases/download/v$version-beta/FishGram-$version-windows-x64.zip"
+                "url": "https://github.com/lonefisher/fishgram/releases/download/v$version/FishGram-$version-windows-x64.zip"
             }
         }
     },
     "notes": [
-        "Beta: large-scope search may take tens of seconds. Some search and update-recovery scenarios remain unverified; see the Release notes.",
+        "Large-scope search may take tens of seconds. Some search and update-recovery scenarios remain unverified; see the Release notes.",
         "This candidate has not completed Windows UI or actual account testing; see the Release notes.",
         "Run 'fishgram' or use the Fishgram shortcut. Accounts and settings persist in FishGramData.",
         "Update with 'scoop update fishgram'. The client's built-in updater is disabled for this installation.",
-        "The package ID is fishgram; this remains a prerelease build, not a stable-release promotion. Do not install alongside fishgram-beta."
+        "The package ID is fishgram. New releases use a normal GitHub tag v<version> and are not prereleases. This manifest still installs 7.4.2-r13 from the historical prerelease tag until that release is published. Do not install alongside a legacy fishgram-beta install."
     ]
 }
